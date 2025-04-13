@@ -1,16 +1,17 @@
-import timeit
+from timeit import default_timer as timer
 import matplotlib.pyplot as plt
 
 def process_time(n):
-    start = timeit.default_timer()
+    start = timer()
 
     for i in range(n):
         for j in range(n):
             pass  # Nested Loop Simulation
 
-    end = timeit.default_timer()
-    return end - start
-
+    end = timer()
+    proc_time= end - start
+    print(f"Time taken for n={n}: {proc_time} seconds")
+    return proc_time
 # Values ​​of n to test
 n_values = [100, 400, 600, 800, 1000, 1100]
 times = [process_time(n) for n in n_values]
