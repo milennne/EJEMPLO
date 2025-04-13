@@ -1,42 +1,36 @@
-import matplotlib.pyplot as plt
-from timeit import default_timer as timer
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = [] 
 
-def if_else_loop(n):
-    for i in range(n):
-        if i % 2 == 0:
-            pass  
-        else:
-            pass
+    def push(self, x):
+        self.stack.append(x)
+        if not self.min_stack or x <= self.min_stack[-1]:
+            self.min_stack.append(x)
 
-# Define values of n manually (without NumPy)
-n_values = [1, 10, 100, 1000, 10000, 100000]
-times = []
+    def pop(self):
+        if self.stack:
+            if self.stack[-1] == self.min_stack[-1]:
+                self.min_stack.pop()
+            self.stack.pop()
 
-# Measure execution times
-for n in n_values:
-    start = timer()
-    for _ in range(5):  # Repeat measurement for better accuracy
-        if_else_loop(n)
-    end = timer()
-    
-    avg_time = (end - start) / 5  # Compute average time
-    times.append(avg_time)
-    print(f"Processing time for n={n} -> {avg_time:.8f} seconds")
+    def top(self):
+        if self.stack:
+            return self.stack[-1]
+        return None
 
-# Plot results
-plt.figure(figsize=(8, 5))
-plt.plot(n_values, times, marker='o', linestyle='-', color='b', label='Execution Time')
-
-# Logarithmic scale on the X-axis
-plt.xscale('log')
-
-# Labels and title
-plt.xlabel('Size of n (log scale)')
-plt.ylabel('Execution time (s)')
-plt.title('If-Then-Else Complexity O(n)')
-plt.legend()
-plt.grid(True, which="both", linestyle="--", linewidth=0.5)
-
-# Show the plot
-plt.show()
-
+    def getMin(self):
+        if self.min_stack:
+            return self.min_stack[-1]
+        return None
+stack = MinStack()
+stack.push(3)
+stack.push(5)
+print(stack.getMin())
+stack.push(2)
+stack.push(2)
+print(stack.getMin())
+stack.pop()
+print(stack.getMin())
+stack.pop()
+print(stack.getMin())
