@@ -39,17 +39,39 @@ print(editor.get_text())  # Hola
 editor = TextEditor()
 
 editor.type('A')
+editor.type('d')
+editor.type('i')
+editor.type('o')
+editor.type('s')
+print(editor.get_text())  # Adios
+
+editor.undo()
+print(editor.get_text())  # Adio
+
+editor.undo()
+print(editor.get_text())  # Adi
+
+editor.undo()
+print(editor.get_text())  # Ad
+
+
+editor = TextEditor()
+
+editor.type('M')
+editor.type('o')
+editor.type('n')
+editor.type('g')
+editor.type('o')
 editor.type('D')
-editor.type('I')
-editor.type('O')
-editor.type('S')
-print(editor.get_text())  # Hello
+editor.type('B')
+print(editor.get_text())  # MongoDB
+
+editor.delete()
+editor.delete()
+print(editor.get_text())  # Mongo
 
 editor.undo()
-print(editor.get_text())  # Hell
+print(editor.get_text())  # MongoD
 
 editor.undo()
-print(editor.get_text())  # Hel
-
-editor.undo()
-print(editor.get_text())  # He
+print(editor.get_text())  # MongoDB
