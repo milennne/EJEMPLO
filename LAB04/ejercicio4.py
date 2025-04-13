@@ -1,77 +1,115 @@
+class DynamicArrayStack:
+
+    def __init__(self, initial_capacity=10):
+        self.data = [None] * initial_capacity
+        self.capacity = initial_capacity
+        self.top = -1
+    
+    def is_empty(self):
+        return self.top == -1
+    
+    def resize(self, new_capacity):
+        new_data = [None] * new_capacity
+        for i in range(self.top + 1):
+            new_data[i] = self.data[i]
+        self.data = new_data
+        self.capacity = new_capacity
+    
+    def push(self, item):
+        if self.top == self.capacity - 1:
+            self.resize(2 * self.capacity)
+        self.top += 1
+        self.data[self.top] = item
+        return True
+    
+    def pop(self):
+        if self.is_empty():
+            raise IndexError("Stack underflow - stack is empty")
+        item = self.data[self.top]
+        self.data[self.top] = None
+        self.top -= 1
+        if 0 < self.top + 1 <= self.capacity // 4 and self.capacity > 10:
+            self.resize(self.capacity // 2)
+        return item
+    
+
+
 class TextEditor:
     def __init__(self):
         self.text = ""
-        self.history = []
+        self.history = DynamicArrayStack()
 
-    def type(self, char):
-        self.history.append(self.text)
-        self.text += char
+    def type_text(self, new_text):
+        self.history.push(('type', new_text))
+        self.text += new_text
 
-    def delete(self):
-        if self.text:
-            self.history.append(self.text)
-            self.text = self.text[:-1]
+    def delete(self, n):
+        deleted = self.text[-n:]
+        self.history.push(('delete', deleted))
+        self.text = self.text[:-n]
 
     def undo(self):
-        if self.history:
-            self.text = self.history.pop()
+        if self.history.is_empty():
+            print("No undo operations.")
+            return
+
+        action, data = self.history.pop()
+        if action == 'type':
+            self.text = self.text[:-len(data)]
+        elif action == 'delete':
+            self.text += data
 
     def get_text(self):
         return self.text
 
 
-# Ejemplo de uso
 editor = TextEditor()
 
-editor.type('H')
-editor.type('o')
-editor.type('l')
-editor.type('a')
-print(editor.get_text())  # Hola
+editor.type_text("Hola")
+print(editor.get_text())  #  "Hola"
 
-editor.delete()
-print(editor.get_text())  # Hol
+editor.type_text(" mundo")
+print(editor.get_text())  #  "Hola mundo"
 
 editor.undo()
-print(editor.get_text())  # Hola
-
-
-editor = TextEditor()
-
-editor.type('A')
-editor.type('d')
-editor.type('i')
-editor.type('o')
-editor.type('s')
-print(editor.get_text())  # Adios
+print(editor.get_text())  #  "Hola"
 
 editor.undo()
-print(editor.get_text())  # Adio
+print(editor.get_text())  #  ""
 
-editor.undo()
-print(editor.get_text())  # Adi
-
-editor.undo()
-print(editor.get_text())  # Ad
 
 
 editor = TextEditor()
 
-editor.type('M')
-editor.type('o')
-editor.type('n')
-editor.type('g')
-editor.type('o')
-editor.type('D')
-editor.type('B')
-print(editor.get_text())  # MongoDB
+editor.type_text("Python es genial")
+print(editor.get_text()) 
 
-editor.delete()
-editor.delete()
-print(editor.get_text())  # Mongo
+editor.delete(7)
+print(editor.get_text()) 
 
 editor.undo()
-print(editor.get_text())  # MongoD
+print(editor.get_text())  
+
+
+
+editor = TextEditor()
+
+editor.type_text("Aprendiendo")
+editor.type_text(" estructuras")
+editor.type_text(" de datos")
+print(editor.get_text())  
+
+editor.delete(10)
+print(editor.get_text())  
 
 editor.undo()
-print(editor.get_text())  # MongoDB
+print(editor.get_text()) 
+
+editor.undo()
+print(editor.get_text())  
+
+editor.undo()
+print(editor.get_text()) 
+
+editor.undo()
+print(editor.get_text()) 
