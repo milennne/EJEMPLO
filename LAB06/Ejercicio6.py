@@ -136,28 +136,47 @@ def round_robin_scheduler(processes, time_quantum):
 
 def test_round_robin_scheduler():
     """Test round-robin scheduler using circular queue."""
-    # Test processes with different burst times
+    #Case1
     processes = [
-        Process(1, 10),  # Process #1 with burst time 10
-        Process(2, 5),   # Process #2 with burst time 5
-        Process(3, 8)    # Process #3 with burst time 8
+        Process(1, 10),
+        Process(2, 5),
+        Process(3, 8)
     ]
-
-    # Run round-robin scheduler with time quantum 2
     time_quantum = 2
     completion_times = round_robin_scheduler(processes, time_quantum)
-
-    # Verify expected completion times (these should match our hand calculations)
     expected = {1: 23, 2: 15, 3: 21}
-
-    # Check if completion times match expected
     for process_id, time in expected.items():
         assert completion_times[process_id] == time, f"Process {process_id} should complete at time {time}"
+    print("✅ Test 1: Round-robin scheduler test passed!")
 
-    print("Round-robin scheduler test passed! ✅")
+    #Case2
+    processes2 = [
+        Process(1, 4),
+        Process(2, 4),
+        Process(3, 4),
+        Process(4, 4)
+    ]
+    time_quantum2 = 2
+    completion_times2 = round_robin_scheduler(processes2, time_quantum2)
+    expected2 = {1: 10, 2: 12, 3: 14, 4: 16}
+    for process_id, time in expected2.items():
+        assert completion_times2[process_id] == time, f"Process {process_id} should complete at time {time}"
+    print("✅ Test 2: All equal burst times test passed!")
+
+    #Case3
+    processes3 = [
+        Process(1, 3),
+        Process(2, 7),
+        Process(3, 2)
+    ]
+    time_quantum3 = 5
+    completion_times3 = round_robin_scheduler(processes3, time_quantum3)
+    expected3 = {1: 3, 2: 12, 3: 10}
+    for process_id, time in expected3.items():
+        assert completion_times3[process_id] == time, f"Process {process_id} should complete at time {time}"
+    print("✅ Test 3: Large quantum test passed!")
+
     return True
-
-
 
 if __name__ == "__main__":
     test_round_robin_scheduler()
