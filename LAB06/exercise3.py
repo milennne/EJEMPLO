@@ -79,7 +79,28 @@ class TrafficSimulation:
             "total_vehicles": len(self.wait_times)
         }
 
-# Prueba
-sim = TrafficSimulation()
-results = sim.run_simulation(60)
-print(results)
+    
+def test_traffic_simulation():
+    print("Running basic traffic simulation test...\n")
+    
+    sim1 = TrafficSimulation(capacity=10, cycle_time=5)
+    result1 = sim1.run_simulation(duration=60)
+    print("Test 1 - 60 seconds")
+    print(result1)
+    print()
+
+    sim2 = TrafficSimulation(capacity=15, cycle_time=4)
+    result2 = sim2.run_simulation(duration=100)
+    print("Test 2 - 100 seconds, bigger capacity and shorter cycles")
+    print(result2)
+    print()
+
+    sim3 = TrafficSimulation(capacity=5, cycle_time=6)
+    result3 = sim3.run_simulation(duration=30)
+    print("Test 3 - 30 seconds, small buffer and longer cycles")
+    print(result3)
+    print()
+
+    print("Tests completed.")
+
+test_traffic_simulation()
