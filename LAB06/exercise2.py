@@ -70,41 +70,15 @@ def rotate_array(arr, k):
         queue.enQueue(i)
     
     k = k % n
-    for i in range(n - k):
+    for i in range(n - k): 
         val = queue.deQueue() 
         queue.enQueue(val) 
 
 
     
-    result = []
-    index = queue.front
-    for i in range(queue.size_count):
-        result.append(queue.items[index])
-        index = (index+1) % queue.capacity
-    return result
+    print(queue.display())
 
 
 print(rotate_array([1, 2, 3, 4], 5))  # -> [4, 1, 2, 3]
 print(rotate_array([1, 2, 3, 4, 5, 6, 7], 3)) # -> [5, 6, 7, 1, 2, 3, 4]
 print(rotate_array([9, 5, 7, 3], 3)) # -> [5, 7, 3, 9]
-
-
-
-1234
-
-4123
-3412
-2341
-1234
-4123
-
-
-1234567
-7123456
-6712345
-5671234
-
-9573
-3957
-7395
-5739
