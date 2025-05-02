@@ -10,10 +10,6 @@ def count_leaves(node):
     if node.left is None and node.right is None:
         return 1
     return count_leaves(node.left) + count_leaves(node.right)
-            count_leaves(2)+count_leave(3)
-            count_leave(4)+count_leave(5)+count_leave(3)
-            1+1+1=3
-
 
 #         1
 #        /\ 
