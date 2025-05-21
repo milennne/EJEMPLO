@@ -58,6 +58,7 @@ class ExpressionTree:
                 # Create new node with result 📊
                 new_node = ExpressionNode(
                     str(int(result) if result == int(result) else result))
+
                 return new_node
             except ValueError:
                 # One of the values is not a number (variable) 🔤
