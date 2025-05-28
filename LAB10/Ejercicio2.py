@@ -12,11 +12,12 @@ class ExpressionNode:
 
 
 
+#tree3 = ExpressionTree.from_infix(['(', '2', '+', '3', ')', '*', '4'])
 def infix_to_postfix(tokens):
     """Convert infix expression to postfix notation."""
     precedence = {'+': 1, '-': 1, '*': 2, '/': 2}  # 📊 Operator precedence
-    stack = []  # 📚 Operator stack
-    postfix = []  # 📝 Result    
+    stack = []  # 📚 Operator stack  (,
+    postfix = []  # 📝 Result       2,3,+
 
     for token in tokens:
         if token not in precedence and token not in '()':
@@ -40,11 +41,12 @@ def infix_to_postfix(tokens):
     return postfix
 
 
+
 class ExpressionTree:
     """Build expression tree from infix notation."""
     def __init__(self):
         self.root = None
-    @classmethod
+    
     def from_infix(cls, tokens):
         """Build expression tree from infix notation."""
         obj = cls()
@@ -62,6 +64,8 @@ class ExpressionTree:
 
         obj.root = stack.pop()  # 🌱 Final node is root
         return obj
+
+
 
 # ✅ Test cases
 # Test 1: Simple addition
