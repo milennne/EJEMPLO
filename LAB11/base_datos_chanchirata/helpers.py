@@ -36,3 +36,4 @@ def load_database(filename="chanchirata_db.pkl"):
     except Exception as e:
         print(f"❌ Error loading database: {e}")
         return None
+
