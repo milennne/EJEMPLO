@@ -21,7 +21,7 @@ class BinarySearchTree:
 
     def build_from_list(self, values):
         for value in values:
-            self.insert(value)
+            self.insert(value)  
 
     def find_lca(self, val1, val2):
         """🧬 Encuentra el ancestro común más bajo (LCA) usando recursividad"""
@@ -62,9 +62,4 @@ def test_find_lca():
 
 # Ejecutar tests
 test_find_lca()
-<<<<<<< HEAD
-#               6
-#
-#
-=======
->>>>>>> 0e0827921807a3863315a5fe25ac3d766bcb486e
+

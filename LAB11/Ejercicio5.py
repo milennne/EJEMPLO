@@ -1,17 +1,17 @@
-# ✅ Nodo de árbol (también usado como nodo de la lista)
+# ✅ Tree node (also used as a node for the doubly linked list)
 class Node:
     def __init__(self, value):
         self.value = value
-        self.left = None   # 🔙 Puntero al nodo anterior en la DLL
-        self.right = None  # 🔜 Puntero al siguiente nodo en la DLL
+        self.left = None   # 🔙 Pointer to the previous node in the DLL
+        self.right = None  # 🔜 Pointer to the next node in the DLL
 
-# ✅ Árbol binario de búsqueda (BST)
+# ✅ Binary Search Tree (BST)
 class BinarySearchTree:
     def __init__(self):
         self.root = None
 
     def insert(self, value):
-        """🔧 Inserta un valor en el BST"""
+        """🔧 Inserts a value into the BST"""
         def _insert(node, value):
             if not node:
                 return Node(value)
@@ -24,47 +24,47 @@ class BinarySearchTree:
         self.root = _insert(self.root, value)
 
     def build_from_list(self, values):
-        """📥 Construye el BST a partir de una lista de valores"""
+        """📥 Builds the BST from a list of values"""
         for v in values:
             self.insert(v)
 
     def bst_to_dll(self):
-        """🔁 Convierte el BST a una lista doblemente enlazada circular ordenada"""
+        """🔁 Converts the BST to a sorted circular doubly linked list (DLL)"""
         if not self.root:
             return None
 
-        self.first = None  # 🟢 Primer nodo del DLL
-        self.last = None   # 🔴 Último nodo visitado
+        self.first = None  # 🟢 First node of the DLL
+        self.last = None   # 🔴 Last visited node
 
         def inorder(node):
             if not node:
                 return
 
-            # 📥 Visita izquierda
+            # 📥 Visit left subtree
             inorder(node.left)
 
-            # 🔗 Conectar el nodo actual al último visitado
+            # 🔗 Link the current node with the last visited node
             if self.last:
-                self.last.right = node  # el último apunta al actual
-                node.left = self.last   # el actual apunta hacia atrás
+                self.last.right = node  # last points to current
+                node.left = self.last   # current points back
             else:
-                self.first = node  # Guardamos el primer nodo (más pequeño)
+                self.first = node  # Store the first (smallest) node
 
-            self.last = node  # Actualizamos el último nodo
+            self.last = node  # Update the last visited node
 
-            # 📤 Visita derecha
+            # 📤 Visit right subtree
             inorder(node.right)
 
-        # 🔁 Recorrido inorden del BST
+        # 🔁 Inorder traversal of the BST
         inorder(self.root)
 
-        # 🔄 Hacer circular la lista
+        # 🔄 Make the list circular
         self.first.left = self.last
         self.last.right = self.first
 
-        return self.first  # 🔚 Retorna el inicio de la DLL
+        return self.first  # 🔚 Return the head of the DLL
 
-# ✅ Validador de la DLL circular
+# ✅ Circular DLL validator
 def validate_circular_dll(head, expected_values):
     if not head:
         return expected_values == []
@@ -73,11 +73,11 @@ def validate_circular_dll(head, expected_values):
     while True:
         values.append(current.value)
         current = current.right
-        if current == head:  # Se completa el ciclo
+        if current == head:  # Completed the cycle
             break
     return values == expected_values
 
-# ✅ Casos de prueba
+# ✅ Test cases
 def test_bst_to_dll():
     bst1 = BinarySearchTree()
     bst1.build_from_list([2, 1, 3])
@@ -103,5 +103,5 @@ def test_bst_to_dll():
     head5 = bst5.bst_to_dll()
     print("🧪 Test 5:", head5 is None)
 
-# 🚀 Ejecutar pruebas
+# 🚀 Run tests
 test_bst_to_dll()
