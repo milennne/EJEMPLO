@@ -62,9 +62,4 @@ def test_find_lca():
 
 # Ejecutar tests
 test_find_lca()
-<<<<<<< HEAD
-#               6
-#
-#
-=======
->>>>>>> 0e0827921807a3863315a5fe25ac3d766bcb486e
+
