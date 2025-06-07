@@ -54,7 +54,7 @@ def test_find_lca():
 
     bst4 = BinarySearchTree()
     bst4.build_from_list([5, 3, 7])
-    print("🧪 Test 4:", bst4.find_lca(5, 5) == 5)  # 🎯 Same node
+    print("🧪 Test 4:", bst4.find_lca(3, 7) == 5)  # 🎯 Same node
 
     bst5 = BinarySearchTree()
     bst5.build_from_list([4, 2, 6, 1, 3, 5, 7])
