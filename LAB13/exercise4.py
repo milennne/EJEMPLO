@@ -60,7 +60,6 @@ class MinHeap:
             raise ValueError(f"Value {val} not found")
 
         deleted_val = self.heap[index]
-        #Si solo hay un elemento o si se quiere eliminar el ultimo elemento
         if index == (len(self.heap) - 1):
             self.heap.pop()
             return deleted_val
