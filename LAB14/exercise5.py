@@ -5,56 +5,63 @@ def record_test(test_name, condition):
 
 class MaxHeap:
     def __init__(self):
+        # Initialize the heap as an empty list
         self.heap = []
     
     def insert(self, value):
-        # Add value maintaining max-heap property
+        # Add the new value at the end of the list
         self.heap.append(value)
+        # Restore the max-heap property by bubbling up
         self._heapify_up(len(self.heap) - 1)
     
     def delete_max(self):
-        # Remove and return maximum element
+        # Remove and return the maximum element (the root)
         if not self.heap:
             return None
-        data_del = self.heap[0]
-        last_item = self.heap.pop(0)
+        data_del = self.heap[0]  # Store the max value to return later
+        last_item = self.heap.pop(0)  # Remove the first element (root)
         if self.heap:
-            self.heap[0] = last_item
-            self._heapify_down(last_item)
+            self.heap[0] = last_item  # Replace root with last item
+            self._heapify_down(last_item)  # Restore heap property
         return data_del
 
-    
     def build_heap(self, array):
-      # Convert array to valid heap in O(n) time
+        # Construct a heap from an unordered array
         self.heap = []
         for val in array:
-            self.insert(val)
+            self.insert(val)  # Insert each element and heapify up
     
     def _heapify_up(self, index):
+        # Move the element at index up until the heap property is restored
         while index > 0:
             parent = (index - 1) // 2
             if self.heap[parent] < self.heap[index]:
+                # Swap if child is greater than parent (max-heap property)
                 self.heap[index], self.heap[parent] = self.heap[parent], self.heap[index]
                 index = parent
                 continue
-            break 
+            break
 
-    
     def _heapify_down(self, index):
-        # Move element down for max-heap        
+        # Move the element at index down until the heap property is restored
         while True:
             left_child = 2 * index + 1
             right_child = 2 * index + 2
             maximum = index
 
+            # Compare with left and right children
             if left_child < len(self.heap) and self.heap[maximum] < self.heap[left_child]:
                 maximum = left_child
             if right_child < len(self.heap) and self.heap[maximum] < self.heap[right_child]:
                 maximum = right_child
+            
             if index == maximum:
-                break
+                break  # Heap property is satisfied
+            
+            # Swap with the larger child and continue down
             self.heap[maximum], self.heap[index] = self.heap[index], self.heap[maximum]
-            index = maximum 
+            index = maximum
+
 
 def test_1_5():
     heap = MaxHeap()
